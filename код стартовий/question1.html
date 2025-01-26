@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Питання 1</title>
+    <style>
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #A1D1B1;
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: #1C2529;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 100px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        h1 {
+            font-size: 36px;
+            animation: slideIn 1.5s ease-in-out;
+        }
+        form {
+            font-size: 20px;
+            color: #1C2529;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #1C2529;
+            border: none;
+            color: #A1D1B1;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            animation: bounceIn 2s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #FFCC00;
+            border-radius: 50%;
+            animation: confetti 2s ease-out forwards;
+        }
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        @keyframes confetti {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(100vh); opacity: 0; }
+        }
+        @keyframes shake {
+            0% { transform: translate(0px, 0px); }
+            25% { transform: translate(-10px, 0px); }
+            50% { transform: translate(10px, 0px); }
+            75% { transform: translate(-10px, 0px); }
+            100% { transform: translate(0px, 0px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes bounceIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Питання 1</h1>
+        <p>Що таке штучний інтелект?</p>
+        <form>
+            <input type="radio" name="answer" value="correct"> Комп'ютерні системи, здатні виконувати розумні завдання<br>
+            <input type="radio" name="answer" value="incorrect"> Назва комп'ютерної гри<br>
+            <input type="radio" name="answer" value="incorrect"> Вид комп'ютерного устаткування<br>
+            <input type="radio" name="answer" value="incorrect"> Марка принтера<br><br>
+            <button type="button" onclick="checkAnswer()">Продовжити</button>
+        </form>
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        function createConfetti() {
+            for (var i = 0; i < 100; i++) {
+                var confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.left = Math.random() * window.innerWidth + "px";
+                confetti.style.top = Math.random() * window.innerHeight + "px";
+                confetti.style.backgroundColor = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+                document.body.appendChild(confetti);
+
+                setTimeout(function() {
+                    confetti.remove();
+                }, 2000);
+            }
+        }
+
+        function shakeScreen() {
+            document.body.classList.add('shake');
+            setTimeout(function() {
+                document.body.classList.remove('shake');
+            }, 500);
+        }
+
+        function checkAnswer() {
+            var radios = document.getElementsByName('answer');
+            var feedback = document.getElementById('feedback');
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    if (radios[i].value === 'correct') {
+                        feedback.innerHTML = 'Правильна відповідь! Знайди наступне завдання біля спортивної зали.';
+                        feedback.style.color = 'green';
+                        createConfetti();
+                    } else {
+                        feedback.innerHTML = 'Неправильна відповідь. Спробуй ще раз!';
+                        feedback.style.color = 'red';
+                        shakeScreen();
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

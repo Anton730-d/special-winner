@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Код Майбутнього</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap');
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #A1D1B1;
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: #1C2529;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 100px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        h1 {
+            font-size: 48px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 1;
+            white-space: nowrap;
+            border-right: 2px solid #1C2529;
+            overflow: hidden;
+        }
+        input {
+            padding: 10px;
+            font-size: 18px;
+            margin-top: 20px;
+            width: 300px;
+            border: 2px solid #1C2529;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #1C2529;
+            animation: fadeInUp 1.5s ease-in-out;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #1C2529;
+            border: none;
+            color: #A1D1B1;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            animation: bounceIn 2s ease;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounceIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="typedText"></h1>
+        <p>Введіть своє ім'я, щоб почати квест:</p>
+        <input type="text" id="name" placeholder="Ваше ім'я">
+        <br><br>
+        <button onclick="startQuest()">Продовжити</button>
+    </div>
+    <script>
+        function typeWriter(text, i, speed) {
+            if (i < text.length) {
+                document.getElementById("typedText").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(function() {
+                    typeWriter(text, i, speed);
+                }, speed);
+            }
+        }
+        window.onload = function() {
+            var text = "Код Майбутнього";
+            var speed = 150;
+            typeWriter(text, 0, speed);
+        };
+        function startQuest() {
+            var name = document.getElementById('name').value;
+            if (name) {
+                var button = document.querySelector('button');
+                button.innerHTML = name + ', натисни "Далі"';
+                button.disabled = true;
+                setTimeout(function() {
+                    window.location.href = 'question1.html';
+                }, 2000);
+            } else {
+                alert('Будь ласка, введіть своє ім\'я.');
+            }
+        }
+    </script>
+</body>
+</html>
